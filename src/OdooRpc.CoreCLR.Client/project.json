@@ -12,9 +12,11 @@
     "json-rpc",
     "dnx"
   ],
-  "projectUrl": "https://github.com/vmlf01/CoreCLR.OdooRpc.Client",
-  "licenseUrl": "https://github.com/vmlf01/CoreCLR.OdooRpc.Client/blob/master/LICENSE",
+  "projectUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client",
+  "licenseUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE",
   "dependencies": {
+    "Newtonsoft.Json": "8.0.1",
+    "JsonRpc.CoreCLR.Client": "0.0.1"
   },
   "commands": {},
   "frameworks": {
@@ -23,7 +25,10 @@
         "System.Runtime": "4.0.21-beta-23516",
         "System.IO": "4.0.11-beta-23516",
         "System.Net.Requests": "4.0.11-beta-23516",
-        "System.Threading.Tasks": "4.0.11-beta-23516"          
+        "System.Net.WebHeaderCollection": "4.0.1-beta-23516",
+        "System.Threading.Tasks": "4.0.11-beta-23516",
+        "System.Console": "4.0.0-beta-23516",
+        "Microsoft.CSharp": "4.0.1-beta-23516"
       }
     },
     "dnx451": {
@@ -32,6 +37,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vmlf01/CoreCLR.OdooRpc.Client"
+    "url": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client"
   }
 }
