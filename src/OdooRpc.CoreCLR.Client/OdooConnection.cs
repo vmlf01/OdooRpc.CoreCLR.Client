@@ -18,11 +18,11 @@ namespace OdooRpc.CoreCLR.Client
             this.SessionInfo = new OdooSessionInfo();
         }
         
-        public Task Connect(OdooConnectionInfo connectionInfo)
+        public async Task Connect(OdooConnectionInfo connectionInfo)
         {
             ResetConnection(connectionInfo);
 
-            return LoginToOdoo();
+            await LoginToOdoo();
         }
         
         private void ResetConnection(OdooConnectionInfo connectionInfo)
