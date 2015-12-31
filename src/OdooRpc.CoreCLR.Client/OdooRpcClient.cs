@@ -4,31 +4,58 @@ using OdooRpc.CoreCLR.Client.Interfaces;
 using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client.Internals;
 using OdooRpc.CoreCLR.Client.Internals.Interfaces;
+using OdooRpc.CoreCLR.Client.Internals.Commands;
+using JsonRpc.CoreCLR.Client.Interfaces;
 
 [assembly: InternalsVisibleTo("OdooRpc.CoreCLR.Client.Tests")]
 namespace OdooRpc.CoreCLR.Client
 {
     public class OdooRpcClient : IOdooRpcClient
     {
-        public OdooConnectionInfo ConnectionInfo { get { return this.OdooConnection.ConnectionInfo; } }
-        public OdooSessionInfo SessionInfo { get { return this.OdooConnection.SessionInfo; } }
+        public OdooSessionInfo SessionInfo { get; private set; }
 
-        private IOdooConnection OdooConnection { get; set; }
+        private IJsonRpcClientFactory RpcFactory { get; set; }
 
-        public OdooRpcClient() 
-            : this(new OdooConnection())
+        public OdooRpcClient(OdooConnectionInfo connectionInfo)
         {
+            this.RpcFactory = new JsonRpcClientFactory();
+            this.SessionInfo = new OdooSessionInfo(connectionInfo);
         }
 
-        internal OdooRpcClient(IOdooConnection connection)
+        public Task<OdooVersionInfo> GetOdooVersion()
         {
-            this.OdooConnection = connection;
+            var versionCommand = new OdooVersionCommand(CreateRpcClient());
+            return versionCommand.Execute(this.SessionInfo);
         }
 
-        public async Task Connect(OdooConnectionInfo connectionInfo)
+        public async Task Authenticate()
         {
-            await this.OdooConnection.Connect(connectionInfo);
+            this.SessionInfo.Reset();
+            var loginCommand = new OdooLoginCommand(CreateRpcClient());
+
+            await loginCommand.Execute(this.SessionInfo);
+
+            this.SessionInfo.IsLoggedIn = loginCommand.IsLoggedIn;
+            this.SessionInfo.UserId = loginCommand.UserId;
         }
 
+        public Task<T> Get<T>(OdooGetParameters parameters)
+        {
+            var readCommand = new OdooReadCommand(CreateRpcClient());
+            return readCommand.Execute<T>(this.SessionInfo, parameters);
+        }
+
+        public Task<T> Get<T>(string model, long id)
+        {
+            var getParams = new OdooGetParameters(model);
+            getParams.Ids.Add(id);
+
+            return this.Get<T>(getParams);
+        }
+
+        private IJsonRpcClient CreateRpcClient()
+        {
+            return this.RpcFactory.GetRpcClient(OdooEndpoints.GetJsonRpcUri(this.SessionInfo));
+        }
     }
 }

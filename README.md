@@ -2,7 +2,7 @@
 
 Simple [Odoo JSON-RPC](https://www.odoo.com/documentation/9.0/api_integration.html) Client for [CoreCLR 5.0](https://github.com/dotnet/coreclr).
 
-Inspired by https://github.com/saidimu/odoo. 
+Inspired by https://github.com/saidimu/odoo and https://github.com/osiell/odoorpc.
 
 ### Installation
 

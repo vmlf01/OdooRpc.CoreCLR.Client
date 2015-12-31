@@ -1,9 +1,13 @@
+using Newtonsoft.Json;
+
 namespace OdooRpc.CoreCLR.Client.Models
 {
     public class OdooUserContext
     {
-        public string lang { get; set; }
-        public string tz { get; set; }
-        public long uid { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Language { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Timezone { get; set; }
     }
 }

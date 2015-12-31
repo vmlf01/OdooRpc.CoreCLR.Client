@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -18,12 +19,14 @@ namespace OdooRpc.CoreCLR.Client.Samples
 
             var p = new Program();
             p.LoginToOdoo().Wait();
-            
+            p.GetPartners().Wait();
+
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
         }
 
         private OdooConnectionInfo OdooConnection;
+        private IOdooRpcClient OdooRpcClient;
 
         public Program()
         {
@@ -47,10 +50,13 @@ namespace OdooRpc.CoreCLR.Client.Samples
         {
             try
             {
-                var OdooRpc = new OdooRpcClient();
-                await OdooRpc.Connect(this.OdooConnection);
+                this.OdooRpcClient = new OdooRpcClient(this.OdooConnection);
 
-                if (OdooRpc.SessionInfo.IsLoggedIn)
+                var odooVersion = await this.OdooRpcClient.GetOdooVersion();
+
+                await this.OdooRpcClient.Authenticate();
+
+                if (this.OdooRpcClient.SessionInfo.IsLoggedIn)
                 {
                     Console.WriteLine("Login successful");
                 }
@@ -64,5 +70,27 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 Console.WriteLine("Error connecting to Odoo: {0}", ex.Message);
             }
         }
+
+        public async Task GetPartners()
+        {
+            try
+            {
+                var reqParams = new OdooGetParameters("hr.department");
+                reqParams.Ids.Add(6);
+                //reqParams.Ids.Add(7);
+
+                reqParams.Fields.Add("name");
+                reqParams.Fields.Add("company_id");
+
+                var partners = await this.OdooRpcClient.Get<JObject[]>(reqParams);
+
+                Console.WriteLine(partners.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting partners from Odoo: {0}", ex.Message);
+            }
+        }
+
     }
 }

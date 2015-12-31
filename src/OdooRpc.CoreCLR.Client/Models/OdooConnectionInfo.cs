@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-
 namespace OdooRpc.CoreCLR.Client.Models
 {
     public class OdooConnectionInfo

@@ -5,11 +5,11 @@ namespace OdooRpc.CoreCLR.Client.Internals
 {
     internal static class OdooEndpoints
     {
-        public static Uri GetAuthenticationUri(OdooConnectionInfo connectionInfo)
+        public static Uri GetJsonRpcUri(OdooConnectionInfo connectionInfo)
         {
-            return GetEndpointUri(connectionInfo, "/web/session/authenticate");
+            return GetEndpointUri(connectionInfo, "/jsonrpc");
         }
-        
+
         private static Uri GetEndpointUri(OdooConnectionInfo connectionInfo, string endpoint)
         {
             return new Uri(string.Format("{0}://{1}:{2}{3}",

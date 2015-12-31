@@ -5,9 +5,11 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
 {
     public interface IOdooRpcClient
     {
-        OdooConnectionInfo ConnectionInfo { get; }
         OdooSessionInfo SessionInfo { get; }
 
-        Task Connect(OdooConnectionInfo connectionInfo);
+        Task<OdooVersionInfo> GetOdooVersion();
+        Task Authenticate();
+        Task<T> Get<T>(string model, long id);
+        Task<T> Get<T>(OdooGetParameters parameters);
     }
 }

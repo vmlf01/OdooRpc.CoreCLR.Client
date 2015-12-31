@@ -27,10 +27,10 @@ namespace OdooRpc.CoreCLR.Client.Tests
             }
 
             [Fact]
-            public void ShouldCreateAuthenticationHttpUri()
+            public void GetJsonRpcUri_ShouldCreateHttpUri()
             {
-                var uri = OdooEndpoints.GetAuthenticationUri(this.connectionInfo);
-                Assert.Equal("http://test.odoo:1234/web/session/authenticate", uri.ToString());
+                var uri = OdooEndpoints.GetJsonRpcUri(this.connectionInfo);
+                Assert.Equal("http://test.odoo:1234/jsonrpc", uri.ToString());
             }
         }
         public class HttpsEndpoint
@@ -50,10 +50,10 @@ namespace OdooRpc.CoreCLR.Client.Tests
             }
 
             [Fact]
-            public void ShouldCreateAuthenticationHttpsUri()
+            public void GetJsonRpcUri_ShouldCreateHttpsUri()
             {
-                var uri = OdooEndpoints.GetAuthenticationUri(this.connectionInfo);
-                Assert.Equal("https://test.odoo:1234/web/session/authenticate", uri.ToString());
+                var uri = OdooEndpoints.GetJsonRpcUri(this.connectionInfo);
+                Assert.Equal("https://test.odoo:1234/jsonrpc", uri.ToString());
             }
         }
     }
