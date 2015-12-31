@@ -7,7 +7,7 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
     {
         OdooConnectionInfo ConnectionInfo { get; }
         OdooSessionInfo SessionInfo { get; }
-                
+
         Task Connect(OdooConnectionInfo connectionInfo);
     }
 }

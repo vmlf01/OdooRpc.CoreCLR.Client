@@ -5,7 +5,9 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
 {
     public interface IOdooRpcClient
     {
-        IOdooConnection OdooConnection { get; }
-        
+        OdooConnectionInfo ConnectionInfo { get; }
+        OdooSessionInfo SessionInfo { get; }
+
+        Task Connect(OdooConnectionInfo connectionInfo);
     }
 }
