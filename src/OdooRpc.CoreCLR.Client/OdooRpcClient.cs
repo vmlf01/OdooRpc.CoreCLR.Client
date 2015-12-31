@@ -8,7 +8,7 @@ using OdooRpc.CoreCLR.Client.Internals.Interfaces;
 [assembly: InternalsVisibleTo("OdooRpc.CoreCLR.Client.Tests")]
 namespace OdooRpc.CoreCLR.Client
 {
-    internal class OdooRpcClient : IOdooRpcClient
+    public class OdooRpcClient : IOdooRpcClient
     {
         public OdooConnectionInfo ConnectionInfo { get { return this.OdooConnection.ConnectionInfo; } }
         public OdooSessionInfo SessionInfo { get { return this.OdooConnection.SessionInfo; } }
@@ -20,7 +20,7 @@ namespace OdooRpc.CoreCLR.Client
         {
         }
 
-        public OdooRpcClient(IOdooConnection connection)
+        internal OdooRpcClient(IOdooConnection connection)
         {
             this.OdooConnection = connection;
         }
