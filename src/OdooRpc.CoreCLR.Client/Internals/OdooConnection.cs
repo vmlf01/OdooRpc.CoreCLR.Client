@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
-using OdooRpc.CoreCLR.Client.Interfaces;
+using OdooRpc.CoreCLR.Client.Internals.Interfaces;
+using OdooRpc.CoreCLR.Client.Internals.Models;
+using OdooRpc.CoreCLR.Client.Models;
 using JsonRpc.CoreCLR.Client;
 using JsonRpc.CoreCLR.Client.Models;
 
-namespace OdooRpc.CoreCLR.Client.Models.Internals
+namespace OdooRpc.CoreCLR.Client.Internals
 {
     internal class OdooConnection : IOdooConnection
     {
