@@ -17,8 +17,13 @@ namespace OdooRpc.CoreCLR.Client
         private IJsonRpcClientFactory RpcFactory { get; set; }
 
         public OdooRpcClient(OdooConnectionInfo connectionInfo)
+            : this(new JsonRpcClientFactory(), connectionInfo)
         {
-            this.RpcFactory = new JsonRpcClientFactory();
+        }
+
+        internal OdooRpcClient(IJsonRpcClientFactory rpcFactory, OdooConnectionInfo connectionInfo)
+        {
+            this.RpcFactory = rpcFactory;
             this.SessionInfo = new OdooSessionInfo(connectionInfo);
         }
 
@@ -37,6 +42,12 @@ namespace OdooRpc.CoreCLR.Client
 
             this.SessionInfo.IsLoggedIn = loginCommand.IsLoggedIn;
             this.SessionInfo.UserId = loginCommand.UserId;
+        }
+
+        public void SetUserId(int userId)
+        {
+            this.SessionInfo.IsLoggedIn = true;
+            this.SessionInfo.UserId = userId;
         }
 
         public Task<T> Get<T>(OdooGetParameters parameters)
