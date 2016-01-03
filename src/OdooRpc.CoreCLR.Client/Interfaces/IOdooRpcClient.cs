@@ -9,7 +9,7 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
 
         Task<OdooVersionInfo> GetOdooVersion();
         Task Authenticate();
-        void SetUserId(int userId);
+        void SetUserId(long userId);
         Task<T> Get<T>(string model, long id);
         Task<T> Get<T>(OdooGetParameters parameters);
     }

@@ -7,8 +7,14 @@ namespace OdooRpc.CoreCLR.Client.Tests
 {
     public class JsonRpcWebClientStub : IJsonRpcClient
     {
+        Action<JsonRpcRequest> RequestValidator;
         object NextResponse;
         public bool WasCalled { get; private set; }
+
+        public void SetNextRequestValidator(Action<JsonRpcRequest> validator)
+        {
+            this.RequestValidator = validator;
+        }
 
         public void SetNextResponse(object nextResponse)
         {
@@ -19,19 +25,29 @@ namespace OdooRpc.CoreCLR.Client.Tests
         public Task<JsonRpcResponse<T>> InvokeAsync<T>(JsonRpcRequest jsonRpc)
         {
             this.WasCalled = true;
+            if (this.RequestValidator != null)
+            {
+                this.RequestValidator(jsonRpc);
+            }
             return Task.FromResult(this.NextResponse as JsonRpcResponse<T>);
         }
 
         public Task<JsonRpcResponse<T>> InvokeAsync<T>(string method, object[] args)
         {
-            this.WasCalled = true;
-            return Task.FromResult(this.NextResponse as JsonRpcResponse<T>);
+            return this.InvokeAsync<T>(new JsonRpcRequest()
+            {
+                Method = method,
+                Params = args
+            });
         }
 
         public Task<JsonRpcResponse<T>> InvokeAsync<T>(string method, object arg)
         {
-            this.WasCalled = true;
-            return Task.FromResult(this.NextResponse as JsonRpcResponse<T>);
+            return this.InvokeAsync<T>(new JsonRpcRequest()
+            {
+                Method = method,
+                Params = arg
+            });
         }
     }
 }

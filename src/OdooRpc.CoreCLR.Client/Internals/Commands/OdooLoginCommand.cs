@@ -31,9 +31,9 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
             }
         }
 
-        private object CreateLoginRequest(OdooSessionInfo sessionInfo)
+        private OdooRpcRequest CreateLoginRequest(OdooSessionInfo sessionInfo)
         {
-            return new
+            return new OdooRpcRequest()
             {
                 service = "common",
                 method = "authenticate",

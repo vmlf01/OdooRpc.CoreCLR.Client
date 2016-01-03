@@ -44,7 +44,7 @@ namespace OdooRpc.CoreCLR.Client
             this.SessionInfo.UserId = loginCommand.UserId;
         }
 
-        public void SetUserId(int userId)
+        public void SetUserId(long userId)
         {
             this.SessionInfo.IsLoggedIn = true;
             this.SessionInfo.UserId = userId;

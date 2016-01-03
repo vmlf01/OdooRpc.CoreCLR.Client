@@ -16,7 +16,7 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
             this.IsLoginRequired = isLoginRequired;
         }
 
-        protected async Task<T> InvokeRpc<T>(OdooSessionInfo sessionInfo, object request)
+        protected async Task<T> InvokeRpc<T>(OdooSessionInfo sessionInfo, OdooRpcRequest request)
         {
             if (this.IsLoginRequired && !sessionInfo.IsLoggedIn)
             {

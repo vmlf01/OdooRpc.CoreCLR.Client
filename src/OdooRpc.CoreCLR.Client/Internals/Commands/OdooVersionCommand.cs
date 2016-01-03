@@ -16,9 +16,9 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
             return InvokeRpc<OdooVersionInfo>(sessionInfo, CreateVersionRequest());
         }
 
-        private object CreateVersionRequest()
+        private OdooRpcRequest CreateVersionRequest()
         {
-            return new
+            return new OdooRpcRequest()
             {
                 service = "common",
                 method = "version",

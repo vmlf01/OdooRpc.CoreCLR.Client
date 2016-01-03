@@ -17,13 +17,13 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
             return InvokeRpc<T>(sessionInfo, CreateReadRequest(sessionInfo, parameters));
         }
 
-        private object CreateReadRequest(OdooSessionInfo sessionInfo, OdooGetParameters parameters)
+        private OdooRpcRequest CreateReadRequest(OdooSessionInfo sessionInfo, OdooGetParameters parameters)
         {
-            return new
+            return new OdooRpcRequest()
             {
                 service = "object",
                 method = "execute_kw",
-                args = new object[] 
+                args = new object[]
                 {
                     sessionInfo.Database,
                     sessionInfo.UserId,
