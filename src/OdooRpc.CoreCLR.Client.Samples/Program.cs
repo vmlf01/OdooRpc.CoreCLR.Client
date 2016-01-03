@@ -54,11 +54,13 @@ namespace OdooRpc.CoreCLR.Client.Samples
 
                 var odooVersion = await this.OdooRpcClient.GetOdooVersion();
 
+                Console.WriteLine("Odoo Version: {0} - {1}", odooVersion.ServerVersion, odooVersion.ProtocolVersion);
+
                 await this.OdooRpcClient.Authenticate();
 
                 if (this.OdooRpcClient.SessionInfo.IsLoggedIn)
                 {
-                    Console.WriteLine("Login successful");
+                    Console.WriteLine("Login successful => User Id: {0}", this.OdooRpcClient.SessionInfo.UserId);
                 }
                 else
                 {
