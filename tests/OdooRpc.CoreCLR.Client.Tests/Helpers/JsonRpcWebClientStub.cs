@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using JsonRpc.CoreCLR.Client.Interfaces;
 using JsonRpc.CoreCLR.Client.Models;
 
-namespace OdooRpc.CoreCLR.Client.Tests
+namespace OdooRpc.CoreCLR.Client.Tests.Helpers
 {
     public class JsonRpcWebClientStub : IJsonRpcClient
     {

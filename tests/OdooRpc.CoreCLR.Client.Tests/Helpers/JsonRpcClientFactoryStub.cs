@@ -2,7 +2,7 @@ using OdooRpc.CoreCLR.Client.Internals.Interfaces;
 using JsonRpc.CoreCLR.Client.Interfaces;
 using System;
 
-namespace OdooRpc.CoreCLR.Client.Tests
+namespace OdooRpc.CoreCLR.Client.Tests.Helpers
 {
     public class JsonRpcClientFactoryStub : IJsonRpcClientFactory
     {
