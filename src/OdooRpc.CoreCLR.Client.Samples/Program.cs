@@ -83,10 +83,11 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 reqParams.Ids.Add(6);
                 //reqParams.Ids.Add(7);
 
-                reqParams.Fields.Add("name");
-                reqParams.Fields.Add("company_id");
+                var fieldParams = new OdooFieldParameters();
+                fieldParams.Add("name");
+                fieldParams.Add("company_id");
 
-                var partners = await this.OdooRpcClient.Get<JObject[]>(reqParams);
+                var partners = await this.OdooRpcClient.Get<JObject[]>(reqParams, fieldParams);
 
                 Console.WriteLine(partners.FirstOrDefault());
             }

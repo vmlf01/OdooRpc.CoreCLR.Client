@@ -51,10 +51,36 @@ namespace OdooRpc.CoreCLR.Client
             this.SessionInfo.UserId = userId;
         }
 
-        public Task<T> Get<T>(OdooGetParameters parameters)
+        public Task<T> Get<T>(OdooGetParameters getParams)
+        {
+            return Get<T>(getParams, new OdooFieldParameters());
+        }
+
+        public Task<T> Get<T>(OdooGetParameters getParams, OdooFieldParameters fieldParams)
         {
             var readCommand = new OdooReadCommand(CreateRpcClient());
-            return readCommand.Execute<T>(this.SessionInfo, parameters);
+            return readCommand.Execute<T>(this.SessionInfo, getParams, fieldParams);
+        }
+
+        public Task<T> Get<T>(OdooSearchParameters getParams)
+        {
+            return Get<T>(getParams, new OdooFieldParameters(), new OdooPaginationParameters());
+        }
+
+        public Task<T> Get<T>(OdooSearchParameters getParams, OdooFieldParameters fieldParams)
+        {
+            return Get<T>(getParams, fieldParams, new OdooPaginationParameters());
+        }
+
+        public Task<T> Get<T>(OdooSearchParameters getParams, OdooPaginationParameters pagParams)
+        {
+            return Get<T>(getParams, new OdooFieldParameters(), pagParams);
+        }
+
+        public Task<T> Get<T>(OdooSearchParameters getParams, OdooFieldParameters fieldParams, OdooPaginationParameters pagParams)
+        {
+            var searchReadCommand = new OdooSearchCommand(CreateRpcClient());
+            return searchReadCommand.Execute<T>(this.SessionInfo, getParams, fieldParams, pagParams);
         }
 
         public Task<T> Get<T>(string model, long id)
@@ -62,7 +88,7 @@ namespace OdooRpc.CoreCLR.Client
             var getParams = new OdooGetParameters(model);
             getParams.Ids.Add(id);
 
-            return this.Get<T>(getParams);
+            return this.Get<T>(getParams, new OdooFieldParameters());
         }
 
         public Task<T> Search<T>(OdooSearchParameters searchParams)

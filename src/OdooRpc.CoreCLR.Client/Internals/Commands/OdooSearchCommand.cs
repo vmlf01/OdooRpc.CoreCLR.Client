@@ -17,15 +17,20 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
 
         public Task<long> ExecuteCount(OdooSessionInfo sessionInfo, OdooSearchParameters searchParams)
         {
-            return InvokeRpc<long>(sessionInfo, CreateSearchRequest(sessionInfo, "search_count", searchParams, null));
+            return InvokeRpc<long>(sessionInfo, CreateSearchRequest(sessionInfo, "search_count", searchParams, null, null));
         }
 
         public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooSearchParameters searchParams, OdooPaginationParameters pagParams)
         {
-            return InvokeRpc<T>(sessionInfo, CreateSearchRequest(sessionInfo, "search", searchParams, pagParams));
+            return InvokeRpc<T>(sessionInfo, CreateSearchRequest(sessionInfo, "search", searchParams, null, pagParams));
         }
 
-        private OdooRpcRequest CreateSearchRequest(OdooSessionInfo sessionInfo, string method, OdooSearchParameters searchParams, OdooPaginationParameters pagParams)
+        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooSearchParameters searchParams, OdooFieldParameters fieldParams, OdooPaginationParameters pagParams)
+        {
+            return InvokeRpc<T>(sessionInfo, CreateSearchRequest(sessionInfo, "search_read", searchParams, fieldParams, pagParams));
+        }
+
+        private OdooRpcRequest CreateSearchRequest(OdooSessionInfo sessionInfo, string method, OdooSearchParameters searchParams, OdooFieldParameters fieldParams, OdooPaginationParameters pagParams)
         {
             List<object> requestArgs = new List<object>(
                 new object[]
@@ -42,10 +47,22 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
                 }
             );
 
+            dynamic searchOptions = new ExpandoObject();
+            bool useSearchOptions = false;
+            if (fieldParams != null && fieldParams.Count > 0)
+            {
+                searchOptions.fields = fieldParams.ToArray();
+                useSearchOptions = true;
+            }
+
             if (pagParams != null && pagParams.IsDefined())
             {
-                dynamic searchOptions = new ExpandoObject();
                 pagParams.AddToParameters(searchOptions);
+                useSearchOptions = true;
+            }
+
+            if (useSearchOptions)
+            {
                 requestArgs.Add(searchOptions);
             }
 

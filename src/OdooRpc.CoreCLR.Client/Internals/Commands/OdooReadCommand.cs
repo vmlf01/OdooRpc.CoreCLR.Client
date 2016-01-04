@@ -15,12 +15,12 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
         {
         }
 
-        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooGetParameters parameters)
+        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooGetParameters getParams, OdooFieldParameters fieldParams)
         {
-            return InvokeRpc<T>(sessionInfo, CreateReadRequest(sessionInfo, parameters));
+            return InvokeRpc<T>(sessionInfo, CreateReadRequest(sessionInfo, getParams, fieldParams));
         }
 
-        private OdooRpcRequest CreateReadRequest(OdooSessionInfo sessionInfo, OdooGetParameters parameters)
+        private OdooRpcRequest CreateReadRequest(OdooSessionInfo sessionInfo, OdooGetParameters getParams, OdooFieldParameters fieldParams)
         {
             List<object> requestArgs = new List<object>(
                 new object[]
@@ -28,19 +28,19 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
                     sessionInfo.Database,
                     sessionInfo.UserId,
                     sessionInfo.Password,
-                    parameters.Model,
+                    getParams.Model,
                     "read",
                     new object[]
                     {
-                        parameters.Ids
+                        getParams.Ids
                     }
                 }
             );
 
-            if (parameters.Fields.Count > 0)
+            if (fieldParams != null && fieldParams.Count > 0)
             {
                 dynamic getOptions = new ExpandoObject();
-                getOptions.fields = parameters.Fields;
+                getOptions.fields = fieldParams.ToArray();
                 requestArgs.Add(getOptions);
             }
 
