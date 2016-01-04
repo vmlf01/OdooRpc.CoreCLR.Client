@@ -15,12 +15,17 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
         {
         }
 
-        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooSearchParameters parameters)
+        public Task<long> ExecuteCount(OdooSessionInfo sessionInfo, OdooSearchParameters searchParams)
         {
-            return InvokeRpc<T>(sessionInfo, CreateSearchRequest(sessionInfo, parameters));
+            return InvokeRpc<long>(sessionInfo, CreateSearchRequest(sessionInfo, "search_count", searchParams, null));
         }
 
-        private OdooRpcRequest CreateSearchRequest(OdooSessionInfo sessionInfo, OdooSearchParameters parameters)
+        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooSearchParameters searchParams, OdooPaginationParameters pagParams)
+        {
+            return InvokeRpc<T>(sessionInfo, CreateSearchRequest(sessionInfo, "search", searchParams, pagParams));
+        }
+
+        private OdooRpcRequest CreateSearchRequest(OdooSessionInfo sessionInfo, string method, OdooSearchParameters searchParams, OdooPaginationParameters pagParams)
         {
             List<object> requestArgs = new List<object>(
                 new object[]
@@ -28,20 +33,20 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
                     sessionInfo.Database,
                     sessionInfo.UserId,
                     sessionInfo.Password,
-                    parameters.Model,
-                    "search",
+                    searchParams.Model,
+                    method,
                     new object[]
                     {
-                        parameters.DomainFilter.ToFilterArray()
+                        searchParams.DomainFilter.ToFilterArray()
                     }
                 }
             );
 
-            if (parameters.Pagination.IsDefined())
+            if (pagParams != null && pagParams.IsDefined())
             {
-                dynamic searchParams = new ExpandoObject();
-                parameters.Pagination.AddToParameters(searchParams);
-                requestArgs.Add(searchParams);
+                dynamic searchOptions = new ExpandoObject();
+                pagParams.AddToParameters(searchOptions);
+                requestArgs.Add(searchOptions);
             }
 
             return new OdooRpcRequest()

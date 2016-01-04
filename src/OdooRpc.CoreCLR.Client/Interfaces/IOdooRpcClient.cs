@@ -14,6 +14,7 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
         Task<T> Get<T>(string model, long id);
         Task<T> Get<T>(OdooGetParameters parameters);
         Task<T> Search<T>(OdooSearchParameters parameters);
-        Task<long> SearchCount(OdooSearchCountParameters parameters);
+        Task<T> Search<T>(OdooSearchParameters searchParameters, OdooPaginationParameters pagParameters);
+        Task<long> SearchCount(OdooSearchParameters parameters);
     }
 }

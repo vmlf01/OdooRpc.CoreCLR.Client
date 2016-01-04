@@ -63,8 +63,7 @@ namespace OdooRpc.CoreCLR.Client.Tests
                 "res.partner",
                 new OdooDomainFilter()
                     .Filter("is_company", "=", true)
-                    .Filter("customer", "=", true),
-                new OdooPaginationParameters(0, 5)
+                    .Filter("customer", "=", true)
             );
 
             var testResults = new long[] {
@@ -97,7 +96,7 @@ namespace OdooRpc.CoreCLR.Client.Tests
                     Assert.Equal(0, pagArgs.offset);
                     Assert.Equal(5, pagArgs.limit);
                 },
-                ExecuteRpcCall = () => RpcClient.Search<long[]>(requestParameters),
+                ExecuteRpcCall = () => RpcClient.Search<long[]>(requestParameters, new OdooPaginationParameters(0, 5)),
                 TestResponse = response
             });
         }
@@ -105,7 +104,7 @@ namespace OdooRpc.CoreCLR.Client.Tests
         [Fact]
         public async Task SearchCount_ShouldCallRpcWithCorrectParameters()
         {
-            var requestParameters = new OdooSearchCountParameters(
+            var requestParameters = new OdooSearchParameters(
                 "res.partner",
                 new OdooDomainFilter()
                     .Filter("is_company", "=", true)

@@ -102,12 +102,11 @@ namespace OdooRpc.CoreCLR.Client.Samples
             {
                 var reqParams = new OdooSearchParameters(
                     "hr.department", 
-                    new OdooDomainFilter().Filter("name", "like", "SIC"),
-                    new OdooPaginationParameters(0, 1)
+                    new OdooDomainFilter().Filter("name", "like", "SIC")
                 );
 
                 var count = await this.OdooRpcClient.SearchCount(reqParams);
-                var partners = await this.OdooRpcClient.Search<long[]>(reqParams);
+                var partners = await this.OdooRpcClient.Search<long[]>(reqParams, new OdooPaginationParameters(0, 1));
 
                 Console.WriteLine(partners.FirstOrDefault());
             }

@@ -65,16 +65,22 @@ namespace OdooRpc.CoreCLR.Client
             return this.Get<T>(getParams);
         }
 
-        public Task<T> Search<T>(OdooSearchParameters parameters)
+        public Task<T> Search<T>(OdooSearchParameters searchParams)
         {
             var searchCommand = new OdooSearchCommand(CreateRpcClient());
-            return searchCommand.Execute<T>(this.SessionInfo, parameters);
+            return searchCommand.Execute<T>(this.SessionInfo, searchParams, new OdooPaginationParameters());
         }
 
-        public Task<long> SearchCount(OdooSearchCountParameters parameters)
+        public Task<T> Search<T>(OdooSearchParameters searchParams, OdooPaginationParameters pagParams)
         {
-            var countCommand = new OdooSearchCountCommand(CreateRpcClient());
-            return countCommand.Execute(this.SessionInfo, parameters);
+            var searchCommand = new OdooSearchCommand(CreateRpcClient());
+            return searchCommand.Execute<T>(this.SessionInfo, searchParams, pagParams);
+        }
+
+        public Task<long> SearchCount(OdooSearchParameters searchParams)
+        {
+            var searchCommand = new OdooSearchCommand(CreateRpcClient());
+            return searchCommand.ExecuteCount(this.SessionInfo, searchParams);
         }
 
         private IJsonRpcClient CreateRpcClient()
