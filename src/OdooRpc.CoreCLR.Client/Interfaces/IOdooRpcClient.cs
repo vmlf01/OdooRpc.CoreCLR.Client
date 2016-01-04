@@ -33,6 +33,7 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
         Task Delete(string model, long id);
         Task Delete(OdooDeleteParameters parameters);
 
-
+        Task Update<T>(string model, long id, T updateValues);
+        Task Update<T>(OdooUpdateParameters<T> parameters);
     }
 }

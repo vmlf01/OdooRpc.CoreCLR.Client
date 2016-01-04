@@ -133,6 +133,17 @@ namespace OdooRpc.CoreCLR.Client
             return deleteCommand.Execute(this.SessionInfo, parameters);
         }
 
+        public Task Update<T>(string model, long id, T updateValues)
+        {
+            return Update<T>(new OdooUpdateParameters<T>(model, new long[] { id }, updateValues));
+        }
+
+        public Task Update<T>(OdooUpdateParameters<T> parameters)
+        {
+            var updateCommand = new OdooUpdateCommand(CreateRpcClient());
+            return updateCommand.Execute<T>(this.SessionInfo, parameters);
+        }
+
         private IJsonRpcClient CreateRpcClient()
         {
             return this.RpcFactory.GetRpcClient(OdooEndpoints.GetJsonRpcUri(this.SessionInfo));
