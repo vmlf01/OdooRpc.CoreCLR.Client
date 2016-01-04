@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using OdooRpc.CoreCLR.Client.Models;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 using JsonRpc.CoreCLR.Client.Interfaces;
 
 namespace OdooRpc.CoreCLR.Client.Internals.Commands

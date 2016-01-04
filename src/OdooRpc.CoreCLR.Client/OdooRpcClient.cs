@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using OdooRpc.CoreCLR.Client.Interfaces;
 using OdooRpc.CoreCLR.Client.Models;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 using OdooRpc.CoreCLR.Client.Internals;
 using OdooRpc.CoreCLR.Client.Internals.Interfaces;
 using OdooRpc.CoreCLR.Client.Internals.Commands;

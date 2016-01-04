@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using OdooRpc.CoreCLR.Client.Interfaces;
 using OdooRpc.CoreCLR.Client.Models;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 using OdooRpc.CoreCLR.Client.Internals;
 using JsonRpc.CoreCLR.Client.Models;
 using Xunit;

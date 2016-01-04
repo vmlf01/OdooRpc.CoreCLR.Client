@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OdooRpc.CoreCLR.Client.Models
+namespace OdooRpc.CoreCLR.Client.Models.Parameters
 {
     public class OdooGetParameters
     {

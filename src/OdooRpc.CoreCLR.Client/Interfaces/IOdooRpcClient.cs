@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using OdooRpc.CoreCLR.Client.Models;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 
 namespace OdooRpc.CoreCLR.Client.Interfaces
 {
