@@ -7,6 +7,7 @@ using OdooRpc.CoreCLR.Client.Internals;
 using OdooRpc.CoreCLR.Client.Internals.Interfaces;
 using OdooRpc.CoreCLR.Client.Internals.Commands;
 using JsonRpc.CoreCLR.Client.Interfaces;
+using System.Collections.Generic;
 
 [assembly: InternalsVisibleTo("OdooRpc.CoreCLR.Client.Tests")]
 namespace OdooRpc.CoreCLR.Client
@@ -49,6 +50,12 @@ namespace OdooRpc.CoreCLR.Client
         {
             this.SessionInfo.IsLoggedIn = true;
             this.SessionInfo.UserId = userId;
+        }
+
+        public Task<Dictionary<string, T>> GetModelFields<T>(OdooGetModelFieldsParameters parameters)
+        {
+            var getCommand = new OdooGetModelFieldsCommand(CreateRpcClient());
+            return getCommand.Execute<T>(this.SessionInfo, parameters);
         }
 
         public Task<T> Get<T>(OdooGetParameters getParams)

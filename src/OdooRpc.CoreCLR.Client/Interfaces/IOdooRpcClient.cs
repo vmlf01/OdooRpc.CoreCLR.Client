@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client.Models.Parameters;
+using System.Collections.Generic;
 
 namespace OdooRpc.CoreCLR.Client.Interfaces
 {
@@ -11,6 +12,8 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
         Task<OdooVersionInfo> GetOdooVersion();
         Task Authenticate();
         void SetUserId(long userId);
+
+        Task<Dictionary<string, T>> GetModelFields<T>(OdooGetModelFieldsParameters parameters);
 
         Task<T> Get<T>(string model, long id);
         Task<T> Get<T>(OdooGetParameters getParameters);

@@ -20,8 +20,10 @@ namespace OdooRpc.CoreCLR.Client.Samples
 
             var p = new Program();
             p.LoginToOdoo().Wait();
-            p.GetPartners().Wait();
-            p.SearchPartners().Wait();
+            p.GetDepartments().Wait();
+            p.SearchDepartments().Wait();
+
+            p.GetDepartmentsFields().Wait();
 
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
@@ -75,7 +77,7 @@ namespace OdooRpc.CoreCLR.Client.Samples
             }
         }
 
-        public async Task GetPartners()
+        public async Task GetDepartments()
         {
             try
             {
@@ -87,17 +89,17 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 fieldParams.Add("name");
                 fieldParams.Add("company_id");
 
-                var partners = await this.OdooRpcClient.Get<JObject[]>(reqParams, fieldParams);
+                var departments = await this.OdooRpcClient.Get<JObject[]>(reqParams, fieldParams);
 
-                Console.WriteLine(partners.FirstOrDefault());
+                Console.WriteLine(departments.FirstOrDefault());
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error getting partners from Odoo: {0}", ex.Message);
+                Console.WriteLine("Error getting departments from Odoo: {0}", ex.Message);
             }
         }
 
-        public async Task SearchPartners()
+        public async Task SearchDepartments()
         {
             try
             {
@@ -107,9 +109,27 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 );
 
                 var count = await this.OdooRpcClient.SearchCount(reqParams);
-                var partners = await this.OdooRpcClient.Search<long[]>(reqParams, new OdooPaginationParameters(0, 1));
+                var departments = await this.OdooRpcClient.Search<long[]>(reqParams, new OdooPaginationParameters(0, 1));
 
-                Console.WriteLine(partners.FirstOrDefault());
+                Console.WriteLine(departments.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting departments from Odoo: {0}", ex.Message);
+            }
+        }
+
+        public async Task GetDepartmentsFields()
+        {
+            try
+            {
+                var reqParams = new OdooGetModelFieldsParameters(
+                    "hr.department"
+                );
+
+                var fields = await this.OdooRpcClient.GetModelFields<dynamic>(reqParams);
+
+                fields.ToList().ForEach(f => Console.WriteLine(f));
             }
             catch (Exception ex)
             {
