@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using OdooRpc.CoreCLR.Client.Models;
 using OdooRpc.CoreCLR.Client.Models.Parameters;
 using JsonRpc.CoreCLR.Client.Interfaces;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace OdooRpc.CoreCLR.Client.Internals.Commands
 {
@@ -20,11 +22,8 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
 
         private OdooRpcRequest CreateReadRequest(OdooSessionInfo sessionInfo, OdooGetParameters parameters)
         {
-            return new OdooRpcRequest()
-            {
-                service = "object",
-                method = "execute_kw",
-                args = new object[]
+            List<object> requestArgs = new List<object>(
+                new object[]
                 {
                     sessionInfo.Database,
                     sessionInfo.UserId,
@@ -33,10 +32,23 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
                     "read",
                     new object[]
                     {
-                        parameters.Ids,
-                        parameters.Fields
+                        parameters.Ids
                     }
-                },
+                }
+            );
+
+            if (parameters.Fields.Count > 0)
+            {
+                dynamic getOptions = new ExpandoObject();
+                getOptions.fields = parameters.Fields;
+                requestArgs.Add(getOptions);
+            }
+
+            return new OdooRpcRequest()
+            {
+                service = "object",
+                method = "execute_kw",
+                args = requestArgs.ToArray(),
                 context = sessionInfo.UserContext
             };
         }

@@ -11,9 +11,44 @@ namespace OdooRpc.CoreCLR.Client.Tests
 {
     public partial class OdooRpcClientTests
     {
-
         [Fact]
         public async Task Get_ShouldCallRpcWithCorrectParameters()
+        {
+            var requestParameters = new OdooGetParameters("res.partner", new long[] { 7 });
+
+            var testPartner = new TestPartner()
+            {
+                comment = false,
+                country_id = new object[] { 21, "Belgium" },
+                id = 7,
+                name = "Agrolait"
+            };
+
+            var response = new JsonRpcResponse<TestPartner[]>();
+            response.Id = 1;
+            response.Result = new TestPartner[] {
+                testPartner
+            };
+
+            await TestOdooRpcCall(new OdooRpcCallTestParameters<TestPartner[]>()
+            {
+                Validator = (p) =>
+                {
+                    Assert.Equal(6, p.args.Length);
+                    dynamic args = p.args[5];
+
+                    Assert.Equal(1, args.Length);
+                    Assert.Equal(requestParameters.Ids, args[0]);
+                },
+                Model = requestParameters.Model,
+                Method = "read",
+                ExecuteRpcCall = () => RpcClient.Get<TestPartner[]>(requestParameters),
+                TestResponse = response
+            });
+        }
+
+        [Fact]
+        public async Task Get_WithFields_ShouldCallRpcWithCorrectParameters()
         {
             var requestParameters = new OdooGetParameters("res.partner", new long[] { 7 }, new string[] { "name", "country_id", "comment" });
 
@@ -35,9 +70,14 @@ namespace OdooRpc.CoreCLR.Client.Tests
             {
                 Validator = (p) =>
                 {
+                    Assert.Equal(7, p.args.Length);
                     dynamic args = p.args[5];
+
+                    Assert.Equal(1, args.Length);
                     Assert.Equal(requestParameters.Ids, args[0]);
-                    Assert.Equal(requestParameters.Fields, args[1]);
+
+                    dynamic fieldsArgs = p.args[6];
+                    Assert.Equal(new string[] { "name", "country_id", "comment" }, fieldsArgs.fields);
                 },
                 Model = requestParameters.Model,
                 Method = "read",

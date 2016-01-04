@@ -13,6 +13,11 @@ namespace OdooRpc.CoreCLR.Client.Models.Parameters
         {
         }
 
+        public OdooGetParameters(string model, IEnumerable<long> ids)
+            : this(model, ids, new List<string>())
+        {
+        }
+
         public OdooGetParameters(string model, IEnumerable<long> ids, IEnumerable<string> fields)
         {
             this.Model = model;
