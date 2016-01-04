@@ -22,8 +22,9 @@ namespace OdooRpc.CoreCLR.Client.Samples
             p.LoginToOdoo().Wait();
             p.GetDepartments().Wait();
             p.SearchDepartments().Wait();
-
             p.GetDepartmentsFields().Wait();
+
+            p.CreateDeleteDepartment().Wait();
 
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
@@ -130,6 +131,25 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 var fields = await this.OdooRpcClient.GetModelFields<dynamic>(reqParams);
 
                 fields.ToList().ForEach(f => Console.WriteLine(f));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting partners from Odoo: {0}", ex.Message);
+            }
+        }
+
+        public async Task CreateDeleteDepartment()
+        {
+            try
+            {
+                var id = await this.OdooRpcClient.Create<dynamic>("hr.department", new
+                {
+                    name = "test"
+                });
+
+                Console.WriteLine(id);
+
+                await this.OdooRpcClient.Delete("hr.department", id);
             }
             catch (Exception ex)
             {

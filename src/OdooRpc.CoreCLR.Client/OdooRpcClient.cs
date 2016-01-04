@@ -116,6 +116,23 @@ namespace OdooRpc.CoreCLR.Client
             return searchCommand.ExecuteCount(this.SessionInfo, searchParams);
         }
 
+        public Task<long> Create<T>(string model, T newRecord)
+        {
+            var createCommand = new OdooCreateCommand(CreateRpcClient());
+            return createCommand.Execute(this.SessionInfo, model, newRecord);
+        }
+
+        public Task Delete(string model, long id)
+        {
+            return Delete(new OdooDeleteParameters(model, new long[] { id }));
+        }
+
+        public Task Delete(OdooDeleteParameters parameters)
+        {
+            var deleteCommand = new OdooDeleteCommand(CreateRpcClient());
+            return deleteCommand.Execute(this.SessionInfo, parameters);
+        }
+
         private IJsonRpcClient CreateRpcClient()
         {
             return this.RpcFactory.GetRpcClient(OdooEndpoints.GetJsonRpcUri(this.SessionInfo));
