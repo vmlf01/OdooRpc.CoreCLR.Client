@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1-*",
+  "version": "0.0.2-*",
   "description": "Simple Odoo JSON-RPC Client for DNX CoreCLR 5.0",
   "authors": [
     "vmlf01",
@@ -25,9 +25,7 @@
         "System.Runtime": "4.0.21-beta-23516",
         "System.IO": "4.0.11-beta-23516",
         "System.Net.Requests": "4.0.11-beta-23516",
-        "System.Net.WebHeaderCollection": "4.0.1-beta-23516",
         "System.Threading.Tasks": "4.0.11-beta-23516",
-        "System.Console": "4.0.0-beta-23516",
         "Microsoft.CSharp": "4.0.1-beta-23516"
       }
     },
