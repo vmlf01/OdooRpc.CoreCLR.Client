@@ -71,6 +71,12 @@ namespace OdooRpc.CoreCLR.Client
             return searchCommand.Execute<T>(this.SessionInfo, parameters);
         }
 
+        public Task<long> SearchCount(OdooSearchCountParameters parameters)
+        {
+            var countCommand = new OdooSearchCountCommand(CreateRpcClient());
+            return countCommand.Execute(this.SessionInfo, parameters);
+        }
+
         private IJsonRpcClient CreateRpcClient()
         {
             return this.RpcFactory.GetRpcClient(OdooEndpoints.GetJsonRpcUri(this.SessionInfo));

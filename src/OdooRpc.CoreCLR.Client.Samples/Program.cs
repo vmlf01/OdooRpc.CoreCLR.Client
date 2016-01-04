@@ -106,6 +106,7 @@ namespace OdooRpc.CoreCLR.Client.Samples
                     new OdooPaginationParameters(0, 1)
                 );
 
+                var count = await this.OdooRpcClient.SearchCount(reqParams);
                 var partners = await this.OdooRpcClient.Search<long[]>(reqParams);
 
                 Console.WriteLine(partners.FirstOrDefault());

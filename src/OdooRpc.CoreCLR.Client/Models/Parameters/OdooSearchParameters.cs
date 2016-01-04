@@ -2,10 +2,8 @@
 
 namespace OdooRpc.CoreCLR.Client.Models.Parameters
 {
-    public class OdooSearchParameters
+    public class OdooSearchParameters : OdooSearchCountParameters
     {
-        public string Model { get; private set; }
-        public OdooDomainFilter DomainFilter { get; private set; }
         public OdooPaginationParameters Pagination { get; private set; }
 
         public OdooSearchParameters(string model)
@@ -19,9 +17,8 @@ namespace OdooRpc.CoreCLR.Client.Models.Parameters
         }
 
         public OdooSearchParameters(string model, OdooDomainFilter domainFilter, OdooPaginationParameters paginationParams)
+            : base(model, domainFilter)
         {
-            this.Model = model;
-            this.DomainFilter = domainFilter;
             this.Pagination = paginationParams;
         }
     }

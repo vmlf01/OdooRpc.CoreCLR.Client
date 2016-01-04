@@ -101,5 +101,46 @@ namespace OdooRpc.CoreCLR.Client.Tests
                 TestResponse = response
             });
         }
+
+        [Fact]
+        public async Task SearchCount_ShouldCallRpcWithCorrectParameters()
+        {
+            var requestParameters = new OdooSearchCountParameters(
+                "res.partner",
+                new OdooDomainFilter()
+                    .Filter("is_company", "=", true)
+                    .Filter("customer", "=", true)
+            );
+
+            var testResults = 2;
+
+            var response = new JsonRpcResponse<long>();
+            response.Id = 1;
+            response.Result = testResults;
+
+            await TestOdooRpcCall(new OdooRpcCallTestParameters<long>()
+            {
+                Model = "res.partner",
+                Method = "search_count",
+                Validator = (p) =>
+                {
+                    Assert.Equal(6, p.args.Length);
+
+                    dynamic domainArgs = p.args[5];
+                    Assert.Equal(2, domainArgs[0].Length);
+                    Assert.Equal(
+                        new object[]
+                        {
+                            new object[] { "is_company", "=", true },
+                            new object[] { "customer", "=", true }
+                        },
+                        domainArgs[0]
+                    );
+                },
+                ExecuteRpcCall = () => RpcClient.SearchCount(requestParameters),
+                TestResponse = response
+            });
+        }
+
     }
 }
