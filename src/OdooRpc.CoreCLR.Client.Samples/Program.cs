@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 
 using OdooRpc.CoreCLR.Client.Interfaces;
 using OdooRpc.CoreCLR.Client.Models;
+using OdooRpc.CoreCLR.Client.Models.Parameters;
 
 namespace OdooRpc.CoreCLR.Client.Samples
 {
@@ -20,6 +21,7 @@ namespace OdooRpc.CoreCLR.Client.Samples
             var p = new Program();
             p.LoginToOdoo().Wait();
             p.GetPartners().Wait();
+            p.SearchPartners().Wait();
 
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
@@ -94,5 +96,24 @@ namespace OdooRpc.CoreCLR.Client.Samples
             }
         }
 
+        public async Task SearchPartners()
+        {
+            try
+            {
+                var reqParams = new OdooSearchParameters(
+                    "hr.department", 
+                    new OdooDomainFilter().Filter("name", "like", "SIC"),
+                    new OdooPaginationParameters(0, 1)
+                );
+
+                var partners = await this.OdooRpcClient.Search<long[]>(reqParams);
+
+                Console.WriteLine(partners.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting partners from Odoo: {0}", ex.Message);
+            }
+        }
     }
 }
