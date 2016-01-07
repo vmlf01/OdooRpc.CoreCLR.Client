@@ -101,6 +101,54 @@ namespace OdooRpc.CoreCLR.Client.Tests
             });
         }
 
+
+
+        [Fact]
+        public async Task Search_WithPaginationWithOrder_ShouldCallRpcWithCorrectParameters()
+        {
+            var requestParameters = new OdooSearchParameters(
+                "res.partner",
+                new OdooDomainFilter()
+                    .Filter("is_company", "=", true)
+                    .Filter("customer", "=", true)
+            );
+
+            var testResults = new long[] {
+                7L, 18L, 12L, 14L, 17L, 19L
+            };
+
+            var response = new JsonRpcResponse<long[]>();
+            response.Id = 1;
+            response.Result = testResults;
+
+            await TestOdooRpcCall(new OdooRpcCallTestParameters<long[]>()
+            {
+                Model = "res.partner",
+                Method = "search",
+                Validator = (p) =>
+                {
+                    Assert.Equal(7, p.args.Length);
+
+                    dynamic domainArgs = p.args[5];
+                    Assert.Equal(2, domainArgs[0].Length);
+                    Assert.Equal(
+                        new object[]
+                        {
+                            new object[] { "is_company", "=", true },
+                            new object[] { "customer", "=", true }
+                        },
+                        domainArgs[0]
+                    );
+                    dynamic pagArgs = p.args[6];
+                    Assert.Equal(0, pagArgs.offset);
+                    Assert.Equal(5, pagArgs.limit);
+                    Assert.Equal("customer ASC, id ASC, name DESC", pagArgs.order);
+                },
+                ExecuteRpcCall = () => RpcClient.Search<long[]>(requestParameters, new OdooPaginationParameters(0, 5).OrderBy("customer").ThenBy("id").ThenByDescending("name")),
+                TestResponse = response
+            });
+        }
+
         [Fact]
         public async Task SearchCount_ShouldCallRpcWithCorrectParameters()
         {

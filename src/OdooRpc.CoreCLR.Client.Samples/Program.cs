@@ -20,11 +20,12 @@ namespace OdooRpc.CoreCLR.Client.Samples
 
             var p = new Program();
             p.LoginToOdoo().Wait();
-            p.GetDepartments().Wait();
-            p.SearchDepartments().Wait();
-            p.GetDepartmentsFields().Wait();
+            //p.GetDepartments().Wait();
+            //p.SearchDepartments().Wait();
+            //p.GetDepartmentsFields().Wait();
+            p.GetAllDepartments().Wait();
 
-            p.CreateDeleteDepartment().Wait();
+            //p.CreateDeleteDepartment().Wait();
 
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
@@ -75,6 +76,25 @@ namespace OdooRpc.CoreCLR.Client.Samples
             catch (Exception ex)
             {
                 Console.WriteLine("Error connecting to Odoo: {0}", ex.Message);
+            }
+        }
+
+        public async Task GetAllDepartments()
+        {
+            try
+            {
+                var fieldParams = new OdooFieldParameters();
+                fieldParams.Add("name");
+                fieldParams.Add("company_id");
+                fieldParams.Add("color");
+
+                var departments = await this.OdooRpcClient.GetAll<JObject[]>("hr.department", fieldParams, new OdooPaginationParameters().OrderByDescending("name"));
+
+                Console.WriteLine(departments.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting departments from Odoo: {0}", ex.Message);
             }
         }
 
