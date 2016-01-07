@@ -90,6 +90,16 @@ namespace OdooRpc.CoreCLR.Client
             return searchReadCommand.Execute<T>(this.SessionInfo, getParams, fieldParams, pagParams);
         }
 
+        public Task<T> GetAll<T>(string model, OdooFieldParameters fieldParameters)
+        {
+            return Get<T>(new OdooSearchParameters(model), fieldParameters, new OdooPaginationParameters());
+        }
+
+        public Task<T> GetAll<T>(string model, OdooFieldParameters fieldParameters, OdooPaginationParameters pagParameters)
+        {
+            return Get<T>(new OdooSearchParameters(model), fieldParameters, pagParameters);
+        }
+
         public Task<T> Get<T>(string model, long id)
         {
             var getParams = new OdooGetParameters(model);
