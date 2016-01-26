@@ -23,10 +23,9 @@ namespace OdooRpc.CoreCLR.Client.Samples
             //p.GetDepartments().Wait();
             //p.SearchDepartments().Wait();
             //p.GetDepartmentsFields().Wait();
-            p.GetAllDepartments().Wait();
-
+            //p.GetAllDepartments().Wait();
             //p.CreateDeleteDepartment().Wait();
-
+            p.GetMetadata().Wait();
             Console.WriteLine("Done! Press a key to exit...");
             Console.ReadKey();
         }
@@ -176,5 +175,22 @@ namespace OdooRpc.CoreCLR.Client.Samples
                 Console.WriteLine("Error getting partners from Odoo: {0}", ex.Message);
             }
         }
+
+        public async Task GetMetadata()
+        {
+            try
+            {
+                var metaParams = new OdooMetadataParameters("res.groups", new System.Collections.Generic.List<long>() { 4 });
+
+                var resp = await this.OdooRpcClient.GetMetadata<JObject[]>(metaParams);
+
+                Console.WriteLine(resp.FirstOrDefault());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting metadata from Odoo: {0}", ex.Message);
+            }
+        }
+
     }
 }
