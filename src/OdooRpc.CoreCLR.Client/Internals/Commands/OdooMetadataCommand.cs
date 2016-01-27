@@ -15,9 +15,9 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
         {
         }
 
-        public Task<T> Execute<T>(OdooSessionInfo sessionInfo, OdooMetadataParameters matadataParams)
+        public Task<IEnumerable<OdooMetadata>> Execute(OdooSessionInfo sessionInfo, OdooMetadataParameters matadataParams)
         {
-            return InvokeRpc<T>(sessionInfo, CreateMetadataRequest(sessionInfo, matadataParams));
+            return InvokeRpc<IEnumerable<OdooMetadata>>(sessionInfo, CreateMetadataRequest(sessionInfo, matadataParams));
         }
 
         private OdooRpcRequest CreateMetadataRequest(OdooSessionInfo sessionInfo, OdooMetadataParameters matadataParams)

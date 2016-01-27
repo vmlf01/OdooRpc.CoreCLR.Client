@@ -24,7 +24,7 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
         Task<T> Get<T>(OdooSearchParameters searchParameters, OdooPaginationParameters pagParameters);
         Task<T> Get<T>(OdooSearchParameters searchParameters, OdooFieldParameters fieldParameters, OdooPaginationParameters pagParameters);
 
-        Task<T> GetMetadata<T>(OdooMetadataParameters parameters);
+        Task<IEnumerable<OdooMetadata>> GetMetadata(OdooMetadataParameters parameters);
 
         Task<T> GetAll<T>(string model, OdooFieldParameters fieldParameters);
         Task<T> GetAll<T>(string model, OdooFieldParameters fieldParameters, OdooPaginationParameters pagParameters);

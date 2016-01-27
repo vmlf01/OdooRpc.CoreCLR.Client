@@ -90,10 +90,10 @@ namespace OdooRpc.CoreCLR.Client
             return searchReadCommand.Execute<T>(this.SessionInfo, getParams, fieldParams, pagParams);
         }
 
-        public Task<T> GetMetadata<T>(OdooMetadataParameters matadataParams)
+        public Task<IEnumerable<OdooMetadata>> GetMetadata(OdooMetadataParameters matadataParams)
         {
             var metadataCommand = new OdooMetadataCommand(CreateRpcClient());
-            return metadataCommand.Execute<T>(this.SessionInfo, matadataParams);
+            return metadataCommand.Execute(this.SessionInfo, matadataParams);
         }
 
         public Task<T> GetAll<T>(string model, OdooFieldParameters fieldParameters)
