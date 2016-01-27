@@ -182,9 +182,9 @@ namespace OdooRpc.CoreCLR.Client.Samples
             {
                 var metaParams = new OdooMetadataParameters("res.groups", new System.Collections.Generic.List<long>() { 4 });
 
-                var resp = await this.OdooRpcClient.GetMetadata<JObject[]>(metaParams);
+                var resp = await this.OdooRpcClient.GetMetadata(metaParams);
 
-                Console.WriteLine(resp.FirstOrDefault());
+                Console.WriteLine(resp.FirstOrDefault().ExternalId);
             }
             catch (Exception ex)
             {

@@ -22,15 +22,18 @@ namespace OdooRpc.CoreCLR.Client.Tests
                 new List<long>() { 4 }
             );
 
-            TestMetadata testResults = new TestMetadata();
-            testResults.xmlid = "base.group_user";
-            testResults.id = 4;
+            IEnumerable<OdooMetadata> testResults = new List<OdooMetadata>() {
+                new OdooMetadata() {
+                     ExternalId = "base.group_user",
+                     Id = 4
+                }
+            };
 
-            var response = new JsonRpcResponse<dynamic>();
+            var response = new JsonRpcResponse<IEnumerable<OdooMetadata>>();
             response.Id = 1;
             response.Result = testResults;
 
-            await TestOdooRpcCall(new OdooRpcCallTestParameters<dynamic>()
+            await TestOdooRpcCall(new OdooRpcCallTestParameters<IEnumerable<OdooMetadata>>()
             {
                 Model = "res.groups",
                 Method = "get_metadata",
@@ -41,7 +44,7 @@ namespace OdooRpc.CoreCLR.Client.Tests
                     dynamic args = p.args[5];
                     Assert.Equal(1, args.Length);
                 },
-                ExecuteRpcCall = () => RpcClient.GetMetadata<dynamic>(metaParameters),
+                ExecuteRpcCall = () => RpcClient.GetMetadata(metaParameters),
                 TestResponse = response
             });
         }
