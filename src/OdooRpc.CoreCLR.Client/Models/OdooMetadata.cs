@@ -11,7 +11,6 @@ namespace OdooRpc.CoreCLR.Client.Models
         [JsonProperty("id")]
         public int Id { get; internal set; }
 
-        [JsonIgnore]
         [JsonProperty("xmlid")]
         public string ExternalId { get; internal set; }
 
