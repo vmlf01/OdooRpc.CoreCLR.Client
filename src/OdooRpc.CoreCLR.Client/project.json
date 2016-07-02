@@ -1,40 +1,35 @@
 {
-  "version": "0.0.5-*",
-  "description": "Simple Odoo JSON-RPC Client for DNX CoreCLR 5.0",
+  "version": "1.0.0-*",
+  "description": "Simple Odoo JSON-RPC Client for .Net Core 1.0",
   "authors": [
     "vmlf01",
     "trafaelsilva"
   ],
-  "tags": [
-    "odoo",
-    "openerp",
-    "coreclr",
-    "json-rpc",
-    "dnx"
-  ],
-  "projectUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client",
-  "licenseUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE",
   "dependencies": {
-    "Newtonsoft.Json": "8.0.1",
-    "JsonRpc.CoreCLR.Client": "0.0.1"
+    "System.Runtime": "4.1.0",
+    "System.IO": "4.1.0",
+    "System.Net.Requests": "4.0.11",
+    "System.Threading.Tasks": "4.0.11",
+    "Newtonsoft.Json": "9.0.1",
+    "JsonRpc.CoreCLR.Client": "1.0.0"
   },
   "commands": {},
   "frameworks": {
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.IO": "4.0.11-beta-23516",
-        "System.Net.Requests": "4.0.11-beta-23516",
-        "System.Threading.Tasks": "4.0.11-beta-23516",
-        "Microsoft.CSharp": "4.0.1-beta-23516"
-      }
-    },
-    "dnx451": {
-      "dependencies": {}
-    }
+    "netstandard1.1":{}
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client"
+  "packOptions": {
+    "tags": [
+      "odoo",
+      "openerp",
+      "dotnet code",
+      "json-rpc",
+      "dotnet"
+    ],
+    "projectUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client",
+    "licenseUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client"
+    }
   }
 }

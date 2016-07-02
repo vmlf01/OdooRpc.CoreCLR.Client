@@ -1,49 +1,40 @@
 {
-  "version": "0.0.1-*",
-  "description": "Simple Odoo JSON-RPC Client for DNX CoreCLR 5.0",
+  "version": "1.0.0-*",
+  "description": "Simple Odoo JSON-RPC Client for .Net Core 1.0",
   "authors": [
     "vmlf01",
     "trafaelsilva"
   ],
-  "tags": [
-    "odoo",
-    "openerp",
-    "coreclr",
-    "json-rpc",
-    "dnx"
-  ],
-  "projectUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client",
-  "licenseUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE",
+  "testRunner": "xunit",
   "dependencies": {
-    "xunit": "2.2.0-beta1-build3239",
-    "xunit.runner.dnx": "2.1.0-rc1-build204",
-    "OdooRpc.CoreCLR.Client": ""
+    "xunit": "2.2.0-*",
+    "dotnet-test-xunit": "2.2.0-*",
+    "OdooRpc.CoreCLR.Client": "1.0.0-*"
   },
-  "commands": {
-    "test": "xunit.runner.dnx"
-  },
+  "commands": {},
   "frameworks": {
-    "dnxcore50": {
+    "netcoreapp1.0": {
       "dependencies": {
-        "System.Console": "4.0.0-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Reflection": "4.1.0-beta-23516",
-        "System.Reflection.Extensions": "4.0.1-beta-23516",
-        "System.Reflection.TypeExtensions": "4.1.0-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516"
-      }
-    },
-    "dnx451": {
-        "frameworkAssemblies": {
-        },
-        "dependencies": {
-
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
         }
+      }
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client"
+  "packOptions": {
+    "tags": [
+      "odoo",
+      "openerp",
+      "dotnet code",
+      "json-rpc",
+      "dotnet"
+    ],
+    "projectUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client",
+    "licenseUrl": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vmlf01/OdooRpc.CoreCLR.Client"
+    }
   }
 }
