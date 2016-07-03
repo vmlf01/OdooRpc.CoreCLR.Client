@@ -11,7 +11,7 @@
     "System.Net.Requests": "4.0.11",
     "System.Threading.Tasks": "4.0.11",
     "Newtonsoft.Json": "9.0.1",
-    "JsonRpc.CoreCLR.Client": "1.0.0"
+    "JsonRpc.CoreCLR.Client": "1.0.1"
   },
   "commands": {},
   "frameworks": {
