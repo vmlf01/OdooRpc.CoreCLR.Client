@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Simple Odoo JSON-RPC Client for .Net Core 1.0</Description>
+    <Authors>vmlf01;trafaelsilva</Authors>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>OdooRpc.CoreCLR.Client.Samples</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>OdooRpc.CoreCLR.Client.Samples</PackageId>
+    <PackageTags>odoo;openerp;dotnet code;json-rpc;dotnet</PackageTags>
+    <PackageProjectUrl>https://github.com/vmlf01/OdooRpc.CoreCLR.Client</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/vmlf01/OdooRpc.CoreCLR.Client/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/vmlf01/OdooRpc.CoreCLR.Client</RepositoryUrl>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OdooRpc.CoreCLR.Client\OdooRpc.CoreCLR.Client.csproj" />
+  </ItemGroup>
+
+</Project>

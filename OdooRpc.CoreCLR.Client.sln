@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooRpc.CoreCLR.Client", "src\OdooRpc.CoreCLR.Client\OdooRpc.CoreCLR.Client.csproj", "{63A7DA18-D63F-4108-9CEB-EC1304461C24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OdooRpc.CoreCLR.Client.Samples", "src\OdooRpc.CoreCLR.Client.Samples\OdooRpc.CoreCLR.Client.Samples.csproj", "{87BCC575-BD82-4B44-BD71-8D0D5C8EB841}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63A7DA18-D63F-4108-9CEB-EC1304461C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A7DA18-D63F-4108-9CEB-EC1304461C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A7DA18-D63F-4108-9CEB-EC1304461C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A7DA18-D63F-4108-9CEB-EC1304461C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87BCC575-BD82-4B44-BD71-8D0D5C8EB841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BCC575-BD82-4B44-BD71-8D0D5C8EB841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BCC575-BD82-4B44-BD71-8D0D5C8EB841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BCC575-BD82-4B44-BD71-8D0D5C8EB841}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4894610-CB54-4E73-A415-2A712320F921}
+	EndGlobalSection
+EndGlobal
