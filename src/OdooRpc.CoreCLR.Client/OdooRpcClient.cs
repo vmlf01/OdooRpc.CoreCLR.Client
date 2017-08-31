@@ -132,6 +132,12 @@ namespace OdooRpc.CoreCLR.Client
             return searchCommand.ExecuteCount(this.SessionInfo, searchParams);
         }
 
+        public Task<long> ExecWorkFlow<T>(string model, string method, long id)
+        {
+            var createCommand = new OdooExecWorkFlowCommand(CreateRpcClient());
+            return createCommand.Execute(this.SessionInfo, model, method, id);
+        }
+
         public Task<long> Create<T>(string model, T newRecord)
         {
             var createCommand = new OdooCreateCommand(CreateRpcClient());
