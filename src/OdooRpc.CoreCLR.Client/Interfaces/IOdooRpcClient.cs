@@ -33,7 +33,9 @@ namespace OdooRpc.CoreCLR.Client.Interfaces
         Task<T> Search<T>(OdooSearchParameters searchParameters, OdooPaginationParameters pagParameters);
         Task<long> SearchCount(OdooSearchParameters parameters);
 
+        Task<long> ExecWorkFlow<T>(string model, string method, long id);
         Task<long> Create<T>(string model, T newRecord);
+        Task<dynamic> CreateDynamic<T>(string model, string method, T newRecord);
 
         Task Delete(string model, long id);
         Task Delete(OdooDeleteParameters parameters);
