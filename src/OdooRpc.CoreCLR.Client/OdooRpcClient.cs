@@ -144,6 +144,13 @@ namespace OdooRpc.CoreCLR.Client
             return createCommand.Execute(this.SessionInfo, model, newRecord);
         }
 
+        public Task<dynamic> CreateDynamic<T>(string model, string method, T id)
+        {
+            var createCommand = new OdooCreateDynamicCommand(CreateRpcClient());
+            return createCommand.Execute(this.SessionInfo, model, method, id);
+        }
+
+
         public Task Delete(string model, long id)
         {
             return Delete(new OdooDeleteParameters(model, new long[] { id }));

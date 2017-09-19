@@ -39,4 +39,43 @@ namespace OdooRpc.CoreCLR.Client.Internals.Commands
             };
         }
     }
+
+    // Needed for e.g.:
+    // var changeQuantity = OdooRpcClient.OdooCreateWithMethodCommand<dynamic>("stock.change.product.qty", "change_product_qty", 1 );
+    internal class OdooCreateDynamicCommand : OdooAbstractCommand
+    {
+        public OdooCreateDynamicCommand(IJsonRpcClient rpcClient)
+            : base(rpcClient)
+        {
+        }
+
+        public Task<dynamic> Execute<T>(OdooSessionInfo sessionInfo, string model, string method, T id)
+        {
+            return InvokeRpc<dynamic>(sessionInfo, CreateCreateDynamicRequest(sessionInfo, model, method, id));
+        }
+
+        private OdooRpcRequest CreateCreateDynamicRequest(OdooSessionInfo sessionInfo, string model, string method, object id)
+        {
+            return new OdooRpcRequest()
+            {
+                service = "object",
+                method = "execute_kw",
+                args = new object[]
+                {
+                    sessionInfo.Database,
+                    sessionInfo.UserId,
+                    sessionInfo.Password,
+                    model,
+                    method,
+                    new object[]
+                    {
+                        id
+                    }
+                },
+                context = sessionInfo.UserContext
+            };
+        }
+
+    }
+
 }
